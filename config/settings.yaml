@@ -1,5 +1,5 @@
 app:
-  name: SylphiaTools
+  name: Phasemap
   version: 1.0
   environment: production
 api:
@@ -18,18 +18,3 @@ thresholds:
   whale_volume: 1000
   flashloan_volume: 1000000
   flashloan_slippage: 10
-param_0: 0
-param_1: 10
-param_2: 20
-param_3: 30
-param_4: 40
-param_5: 50
-param_6: 60
-param_7: 70
-param_8: 80
-param_9: 90
-param_10: 100
-param_11: 110
-param_12: 120
-param_13: 130
-param_14: 140
