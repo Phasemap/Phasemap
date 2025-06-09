@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "Deploying SylphiaTools..."
+echo "Deploying Phasemap..."
 docker-compose down
 docker-compose build
 docker-compose up -d
