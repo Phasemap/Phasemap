@@ -1,5 +1,5 @@
 [project]
-name = "Sylphia"
+name = "Phasemap"
 version = "1.0"
 [limits]
 tx_threshold = 500
