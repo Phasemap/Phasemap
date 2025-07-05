@@ -1,11 +1,28 @@
 [project]
 name = "Phasemap"
 version = "1.0"
+
 [limits]
+# Maximum number of transactions to analyze before triggering alert
 tx_threshold = 500
+
+# Volume threshold (in USD or token units) for anomaly detection
 volume_threshold = 100000
+
+# Percent change in price that triggers a phase alert
 price_change_threshold = 1.5
+
 [flags]
+# Enable detection of bot-like patterns
 bot_detection = true
+
+# Enable scanning for Sybil attack patterns
 sybil_scanning = true
+
+# Enable alerts for large whale movements
 whale_alerts = true
+
+[experimental]
+# Toggle for enabling early access features
+phase_anomaly_clustering = false
+heatmap_mode = false
