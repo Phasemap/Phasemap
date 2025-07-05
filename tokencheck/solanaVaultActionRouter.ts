@@ -1,4 +1,9 @@
-import { Connection, PublicKey, Transaction, TransactionInstruction } from "@solana/web3.js"
+import {
+  Connection,
+  PublicKey,
+  Transaction,
+  TransactionInstruction,
+} from "@solana/web3.js"
 import { SolanaVaultAction, VaultActionType } from "./solanaVaultProcessor"
 
 export interface VaultRequest {
@@ -8,25 +13,44 @@ export interface VaultRequest {
   payload: Record<string, any>
 }
 
+/**
+ * Routes a vault action to the correct instruction builder.
+ *
+ * @param conn - Solana RPC connection
+ * @param req - The vault request payload
+ * @returns Transaction object with attached instruction(s)
+ */
 export async function routeVaultAction(
   conn: Connection,
   req: VaultRequest
 ): Promise<Transaction> {
-  const tx = new Transaction()
-
-  switch (req.type) {
-    case "DEPOSIT":
-      tx.add(await SolanaVaultAction.buildDepositInstruction(req))
-      break
-    case "WITHDRAW":
-      tx.add(await SolanaVaultAction.buildWithdrawInstruction(req))
-      break
-    case "REFRESH":
-      tx.add(await SolanaVaultAction.buildRefreshInstruction(req))
-      break
-    default:
-      throw new Error(`Unsupported vault action: ${req.type}`)
+  if (!req.type || !req.authority || !req.vault) {
+    throw new Error("Invalid vault request: missing required fields")
   }
 
-  return tx
+  const tx = new Transaction()
+
+  let instruction: TransactionInstruction
+
+  try {
+    switch (req.type) {
+      case "DEPOSIT":
+        instruction = await SolanaVaultAction.buildDepositInstruction(req)
+        break
+      case "WITHDRAW":
+        instruction = await SolanaVaultAction.buildWithdrawInstruction(req)
+        break
+      case "REFRESH":
+        instruction = await SolanaVaultAction.buildRefreshInstruction(req)
+        break
+      default:
+        throw new Error(`Unsupported vault action: ${req.type}`)
+    }
+
+    tx.add(instruction)
+    return tx
+  } catch (err) {
+    console.error("Vault action routing failed:", err)
+    throw new Error(`Failed to build instruction for ${req.type}`)
+  }
 }
