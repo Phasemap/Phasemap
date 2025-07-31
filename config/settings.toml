@@ -3,7 +3,6 @@ name = "Phasemap"
 version = "1.0"
 
 [limits]
-# Maximum number of transactions to analyze before triggering alert
 tx_threshold = 500
 
 # Volume threshold (in USD or token units) for anomaly detection
