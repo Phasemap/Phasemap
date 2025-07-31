@@ -1,6 +1,6 @@
 // Time constants (in milliseconds)
-export const DEFAULT_SCAN_INTERVAL = 10 * 60 * 1000      // 10 minutes
-export const FLASH_ACTIVITY_WINDOW_MS = 5 * 60 * 1000    // 5-minute rolling window
+export const DEFAULT_SCAN_INTERVAL = 10 * 60 * 1000      
+export const FLASH_ACTIVITY_WINDOW_MS = 5 * 60 * 1000    
 export const MAX_LOOKBACK_DURATION_MS = 6 * 60 * 60 * 1000 // 6 hours max scan window
 
 // Transaction limits
