@@ -7,7 +7,7 @@ export type PhasemapSchema = z.ZodObject<z.ZodRawShape>
 export interface PhasemapActionResponse<T> {
   notice: string
   data?: T
-  timestamp?: string
+  timestamp: string
 }
 
 // Blueprint for all Phasemap AI-actions
@@ -30,7 +30,7 @@ export interface PhasemapActionCore<
 // Union type for pluggable actions
 export type PhasemapAction = PhasemapActionCore<PhasemapSchema, unknown, unknown>
 
-// Action: Deep risk analysis for a given token address
+// Risk signal sweep action implementation
 export const riskSignalSweepAction: PhasemapActionCore<
   z.ZodObject<{
     tokenAddress: z.ZodString
@@ -40,8 +40,8 @@ export const riskSignalSweepAction: PhasemapActionCore<
   {
     riskScore: number
     anomalyFlags: string[]
-    volumeAnomaly?: boolean
-    sybilDetected?: boolean
+    volumeAnomaly: boolean
+    sybilDetected: boolean
   },
   {
     scanEndpoint: string
@@ -50,44 +50,72 @@ export const riskSignalSweepAction: PhasemapActionCore<
   }
 > = {
   id: "riskSignalSweep",
-  summary: "Analyze token activity and emit anomaly signals based on multi-factor AI scoring",
+  summary:
+    "Analyze token activity and emit anomaly signals based on multi-factor AI scoring",
   input: z.object({
-    tokenAddress: z.string(),
+    tokenAddress: z.string().nonempty(),
     hoursBack: z.number().int().positive(),
-    deepTrace: z.boolean().optional()
+    deepTrace: z.boolean().optional(),
   }),
+
   async execute({ payload, context }) {
     const { tokenAddress, hoursBack, deepTrace } = payload
-    const { scanEndpoint, apiKey, includeAdvancedCheck } = context
+    const {
+      scanEndpoint,
+      apiKey,
+      includeAdvancedCheck = false,
+    } = context
 
-    const url = new URL(`${scanEndpoint}/phasemap/risk`)
-    url.searchParams.append("address", tokenAddress)
-    url.searchParams.append("hours", hoursBack.toString())
-    if (deepTrace) url.searchParams.append("deep", "1")
-    if (includeAdvancedCheck) url.searchParams.append("advanced", "1")
-
-    const res = await fetch(url.toString(), {
-      method: "GET",
-      headers: {
-        "X-API-Key": apiKey,
-        "Content-Type": "application/json"
-      }
-    })
-
-    if (!res.ok) {
-      throw new Error(`Phasemap risk sweep failed: ${res.status} ${res.statusText}`)
+    if (!scanEndpoint || !apiKey) {
+      throw new Error(
+        'Missing required context: scanEndpoint and apiKey'
+      )
     }
 
-    const result = await res.json()
+    const url = new URL(`${scanEndpoint}/risk-scan`)
+    url.searchParams.set("address", tokenAddress)
+    url.searchParams.set("hours", hoursBack.toString())
+    if (deepTrace) url.searchParams.set("deep", "1")
+    if (includeAdvancedCheck)
+      url.searchParams.set("advanced", "1")
+
+    let response: Response
+    try {
+      response = await fetch(url.toString(), {
+        method: "GET",
+        headers: {
+          "X-API-Key": apiKey,
+          "Accept": "application/json",
+        },
+        // optional timeout via AbortController if supported
+      })
+    } catch (err: any) {
+      throw new Error(
+        `Phasemap risk sweep request error: ${err.message}`
+      )
+    }
+
+    if (!response.ok) {
+      const text = await response.text()
+      throw new Error(
+        `Risk sweep failed: ${response.status} ${response.statusText} - ${text}`
+      )
+    }
+
+    const result = await response.json()
+    const data = {
+      riskScore: Number(result.riskScore) || 0,
+      anomalyFlags: Array.isArray(result.flags)
+        ? result.flags.map(String)
+        : [],
+      volumeAnomaly: Boolean(result.volumeAnomaly),
+      sybilDetected: Boolean(result.sybilDetected),
+    }
+
     return {
       notice: `Phasemap scan completed for ${tokenAddress}`,
       timestamp: new Date().toISOString(),
-      data: {
-        riskScore: result.riskScore,
-        anomalyFlags: result.flags,
-        volumeAnomaly: result.volumeAnomaly ?? false,
-        sybilDetected: result.sybilDetected ?? false
-      }
+      data,
     }
-  }
+  },
 }
