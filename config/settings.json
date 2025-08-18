@@ -1,12 +1,36 @@
 {
   "project": "Phasemap",
-  "version": "1.0",
-  "enabledModules": ["bot", "sybil", "whale", "flashloan"],
-  "maxRequestsPerMinute": 60,
-  "retryLimit": 3,
+  "version": "1.0.0",
+  "description": "Modular risk detection engine for Web3 transaction profiling",
+  "enabledModules": [
+    "bot",
+    "sybil",
+    "whale",
+    "flashloan"
+  ],
+  "rateLimiting": {
+    "maxRequestsPerMinute": 60,
+    "burstLimit": 10,
+    "retryLimit": 3
+  },
   "riskLevels": {
     "low": 1,
     "medium": 2,
-    "high": 3
+    "high": 3,
+    "critical": 4
+  },
+  "logging": {
+    "level": "info",
+    "output": "logs/phasemap.log",
+    "rotateDaily": true
+  },
+  "telemetry": {
+    "enabled": true,
+    "intervalMs": 60000,
+    "endpoint": "https://telemetry.phasemap.ai/ingest"
+  },
+  "features": {
+    "autoDisableOnFailure": true,
+    "experimentalAnalysis": false
   }
 }
