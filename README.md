@@ -1,134 +1,84 @@
-# **Phasemap: Predictive Blockchain Phase Analysis**
+# 🛰 Phasemap: Blockchain Signal Mapping Engine  
 
-## 🌐 Overview  
-**Phasemap** uses AI to analyze price, market behavior, and liquidity — helping you detect blockchain phases and anticipate structural trends before they fully form.
-
-## 🔑 Key Features
-
-### 🌀 PhaseMap  
-Detects market phase transitions by identifying significant shifts in price and trading volume.
-
-### 📈 GrowthShift  
-Forecasts early signs of growth by analyzing momentum and underlying market depth.
-
-### 🌊 DataWave  
-Tracks real-time volatility by comparing price fluctuations against liquidity changes.
-
-### 🔍 MarketLens  
-Visualizes market phases through directionality and volatility pressure overlays.
-
-### 🛡 TrendGuard  
-Flags potentially dangerous market activity by scanning for sharp price moves with abnormal volume surges.
+**Phasemap** is an AI-powered signal engine that maps hidden blockchain activity into structured insights.  
+It transforms noisy on-chain data into clear intelligence streams — empowering traders, analysts, and security researchers with a visual and analytical edge.  
 
 ---
 
-## 🔮 Phasemap Trajectory
+## 🔗 Ecosystem Links  
 
-### ✅ Cycle 1: Foundation Layer — *Complete*  
-Core modules for real-time phase detection and market visualization.  
-📅 Released: **Q3 2025**
-
-### 🟣 Cycle 2: Reactive Intelligence — *In Progress*  
-Integration of adaptive systems that respond to micro-movements and behavioral shifts.  
-📅 Expected: **Q4 2025**
-
-### 🔮 Cycle 3: Predictive Awareness — *Coming Soon*  
-Phasemap evolves from detection to true foresight — unlocking predictive AI across chains.  
-📅 Planned: **Q1 2026**
+[![Chrome Extension](https://img.shields.io/badge/Chrome-Extension-4285F4?logo=googlechrome&logoColor=white)](https://chromewebstore.google.com/detail/phasemap/gkcpcbifdcopjdggokopmfekmigjfijk)  
+[![Docs](https://img.shields.io/badge/Docs-GitBook-3B82F6?logo=bookstack&logoColor=white)](https://phasemap.gitbook.io/phasemap-docs/)  
+[![Website](https://img.shields.io/badge/Web-PhasemapTech.com-0EA5E9?logo=vercel&logoColor=white)](https://phasemaptech.com)  
+[![GitHub](https://img.shields.io/badge/GitHub-Code-181717?logo=github&logoColor=white)](https://github.com/Phasemap/Phasemap)  
+[![Twitter](https://img.shields.io/badge/Twitter-@PhasemapTech-1DA1F2?logo=twitter&logoColor=white)](https://x.com/PhasemapTech)  
+[![Telegram](https://img.shields.io/badge/Telegram-Community-2CA5E0?logo=telegram&logoColor=white)](https://t.me/PhasemapAI)  
 
 ---
 
-## 🔬Phasemap Algorithms
+## 🤖 Core Agents  
 
-Phasemap is built on a series of modular AI routines that analyze blockchain market dynamics, trend behavior, and structural volatility in real time.
+Phasemap gives users a set of specialized agents to choose from — each tuned to different aspects of blockchain monitoring:  
 
-### 1. 🌀 PhaseMap — Cycle Transition Detector  
-**Language:** Python
-
-```python
-def phase_map(market_data):
-    phase_threshold = 0.1
-    price_change = (market_data["current_price"] - market_data["previous_price"]) / market_data["previous_price"]
-    volume_change = (market_data["current_volume"] - market_data["previous_volume"]) / market_data["previous_volume"]
-
-    if abs(price_change) > phase_threshold or abs(volume_change) > phase_threshold:
-        return "Alert: Market Phase Transition Detected"
-    else:
-        return "Market Phase Stable"
-```
-#### AI Logic: Detects phase shifts (e.g., accumulation → breakout) by monitoring price and volume deltas.
-
-### 2. 📈 GrowthShift — Trend Momentum Forecaster
-
-```python
-def growth_shift(market_data):
-    price_growth = (market_data["current_price"] - market_data["previous_price"]) / market_data["previous_price"]
-    depth_factor = market_data["total_volume"] / market_data["market_liquidity"]
-    
-    prediction_score = price_growth * depth_factor
-
-    if prediction_score > 0.1:
-        return "Alert: Market Growth Predicted"
-    else:
-        return "Market Stable"
-```
-#### AI Logic: Combines price momentum and liquidity depth to forecast directional trends.
-
-### 3. 🌊 DataWave — Real-Time Volatility Scanner
-
-```javascript
-function dataWave(marketData) {
-  const volatilityIndex = marketData.priceChange / marketData.previousPrice;
-  const liquidityRisk = marketData.totalVolume / marketData.marketLiquidity;
-
-  const marketRisk = volatilityIndex * liquidityRisk;
-
-  if (marketRisk > 0.5) {
-    return 'Alert: High Market Volatility Detected';
-  } else {
-    return 'Market Volatility Low';
-  }
-}
-```
-#### AI Logic: Detects market turbulence using live price swings and liquidity behavior.
-
-### 4. 🔍 MarketLens — Phase Visual Interpreter
-
-```python
-def market_lens(market_data):
-    price_change_pct = (market_data["current_price"] - market_data["previous_price"]) / market_data["previous_price"]
-    volatility_impact = market_data["price_fluctuation"] / market_data["volume"]
-
-    if price_change_pct > 0.2 and volatility_impact > 0.3:
-        return "Alert: Market Growth Phase Detected"
-    elif price_change_pct < -0.2 and volatility_impact > 0.3:
-        return "Alert: Market Decline Phase Detected"
-    else:
-        return "Market in Neutral Phase"
-```
-#### AI Logic: Maps current market mood based on directional shifts and volatility strength.
-
-### 5. 🛡 TrendGuard — Market Risk Detector
-
-```python
-def trend_guard(market_data):
-    trend_score = (market_data["current_price"] - market_data["previous_price"]) / market_data["previous_price"]
-    volume_score = market_data["volume"] / market_data["previous_volume"]
-
-    risk_score = abs(trend_score) * volume_score
-
-    if risk_score > 0.15:
-        return "Alert: High Market Risk Detected"
-    else:
-        return "Market Trend Stable"
-```
-#### AI Logic: Flags risky momentum by analyzing rapid price movement combined with abnormal volume behavior.
+- 🧠 **Analyzer Agent** — token scans, risk profiling, contract safety evaluation  
+- 👛 **Wallet Tracker Agent** — whale activity, wallet clustering, recursive movement tracing  
+- 🌐 **Social Scanner Agent** — sentiment monitoring, narrative detection, media-driven signals  
+- 💧 **Liquidity Strateg Agent** — pool depth analysis, liquidity shifts, trading scenarios  
 
 ---
 
-## 🔮 Final Pulse
+## 🛠 Custom Agent Builder  
 
-> Phasemap turns raw market motion into rhythm  
-> From chaos to clarity — one phase at a time.
+With **Phasemap Custom Agent Builder**, you can design your own AI assistant by combining the logic of multiple agents:  
+
+- **Analyzer + Wallet Tracker** → forensic-grade monitoring of suspicious wallet groups  
+- **Social Scanner + Liquidity Strateg** → narrative-driven liquidity and market response analysis  
+- **Full Stack** (all four agents) → a complete blockchain radar for activity, liquidity, sentiment, and risk  
+
+⚡ Tailor your agent to match your trading style — defensive monitoring, aggressive gem hunting, or long-term strategic scanning.  
+
+---
+
+## 🗺 Roadmap  
+
+### ✅ Phase 1: MVP *(Completed, Q3 2025)*  
+- Terminal Scanner  
+- Early AI Signals & Promo  
+- Chrome Extension v1  
+- Community Token **$PSMP**  
+- Core Risk Engine  
+
+### 🟡 Phase 2: Expansion *(In Progress, Q3 2025)*  
+- Role Sync (Discord)  
+- Chrome Extension v2  
+- Real-Time Alerts  
+- Telegram Mini App  
+- AI Engine v2  
+
+### 🔵 Phase 3: Advanced Rollout *(Planned, Q4 2025)*  
+- Token Profiles  
+- Threat Engine v3  
+- Cross-Chain Risk Index  
+- Mobile App Alpha  
+
+---
+
+## ⚙️ Tech Stack  
+
+- **TypeScript** — extension and app logic  
+- **React + Tailwind** — user interface  
+- **Node.js** — backend services  
+- **Solana Web3.js** — blockchain integration  
+- **Python Signal Engine** — AI-based detection models  
+- **PostgreSQL** — structured data storage  
+- **Redis** — real-time signal caching  
+- **REST + WebSocket APIs** — external integrations and live updates  
+
+---
+
+## ❗ Disclaimer  
+
+Phasemap provides **signal intelligence only**.  
+It does not guarantee financial results or predict market outcomes. Always **DYOR** before making decisions.  
 
 ---
